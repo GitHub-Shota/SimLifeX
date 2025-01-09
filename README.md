@@ -1,118 +1,159 @@
 # SimLifeX
 
-STEP1.gitの使い方
+# STEP1: gitの使い方
 
-0.gitをインストールする
-https://gitforwindows.org/　でインストーラをダウンロードし、指示に従ってgitをインストールする。
+## 0. gitをインストールする
+[https://gitforwindows.org/](https://gitforwindows.org/) でインストーラをダウンロードし、指示に従ってgitをインストールする。
+
 Vscodeを使用している場合などは、コミットを見やすくするなどの拡張機能を導入してもよい。
 
-
-1.gitで共有したリポジトリの保存(コピー)方法
+## 1. gitで共有したリポジトリの保存(コピー)方法
 以下、プログラムはgitのリポジトリを複製したい階層にて実行。
-cmd想定
+**cmd想定**
 
-$git clone (gitの共有先のURL)
+```
+$ git clone (gitの共有先のURL)
+```
 
-で、自身のPCの任意のディレクトリに共有したいgitのリポジトリが作製(コピー)される。
-HTTPS：HTTPSでの転送。認証機能あり。
-SSH：SSHでの転送。認証機能あり。
-GitHub CLI：Gitのプロトコルでの転送。認証機能なし。
+これにより、自身のPCの任意のディレクトリに共有したいgitのリポジトリが作製(コピー)される。
 
-2.各自編集した内容をGitに上げる/引っ張る、状態を確認する
+- **HTTPS**: HTTPSでの転送。認証機能あり。
+- **SSH**: SSHでの転送。認証機能あり。
+- **GitHub CLI**: Gitのプロトコルでの転送。認証機能なし。
 
-・リモートの状態確認
+## 2. 各自編集した内容をGitに上げる/引っ張る、状態を確認する
 
-$git fetch
-$git log origin/main
+### リモートの状態確認
 
-を実行することでコミットログの閲覧が可能。
+```
+$ git fetch
+$ git log origin/main
+```
 
-・Gitに上げる(Push)
+これを実行することで、コミットログの閲覧が可能。
 
+### Gitに上げる(Push)
+
+```
 $ git add .
 $ git commit -m "[編集内容などを短文で]"
 $ git push origin main
+```
 
-を実行。
-主にアプリケーションの更新作業をしたときに使用。
-リモートリポジトリをローカルリポジトリに同期する。
+主にアプリケーションの更新作業をしたときに使用。リモートリポジトリをローカルリポジトリに同期する。
 
-・Gitから引っ張る(pull)
+### Gitから引っ張る(Pull)
 
+```
 $ git pull origin main
+```
 
-を実行。
-主に、本番環境にてアプリケーションを配置するときに使用
-ローカルリポジトリ（＝作業ディレクトリ）をリモートリポジトリと同期する。
+主に本番環境にてアプリケーションを配置するときに使用。ローカルリポジトリ（＝作業ディレクトリ）をリモートリポジトリと同期する。
 
-Step2: python環境の再現
+# STEP2: Python環境の再現
 
-Pythonのインストール
-pythonのバージョンを表示する
-同時に
-    インストールされていること
-    環境変数が通っていること（＝任意のディレクトリで実行可能である）
-以上2点を確認する
+## 1. Pythonのインストール
+
+### Pythonのバージョンを表示して確認
+以下を確認:
+- インストールされていること
+- 環境変数が通っていること（＝任意のディレクトリで実行可能である）
+
+```
 $ python --version
+```
 
-バージョンが確認できなければmicrosoft storeなどからインストールをする.
-インストールウィザードの途中で□ Add Python 3.X. to PATHにチェックを入れて環境変数を追記させる．
+バージョンが確認できなければ、Microsoft Storeなどからインストールをする。インストールウィザードの途中で `Add Python 3.X. to PATH` にチェックを入れて環境変数を追記させる。
 
-pipのインストール
-pip のバージョンを確認しながら, インストールされていることを確認する. 
-※ Python 3.4以降は標準で付属
-$ python -m pip –version
+## 2. pipのインストール
 
-パッケージのインストール
-使用しているパッケージ一覧を書き出したrequirements.txtを参照して, パッケージを一括インストールする.
-/SimLifeX$ pip install -r requirements.txt
+pip のバージョンを確認し、インストールされていることを確認する。
 
-後述の仮想環境を構築している場合, 仮想環境を起動した状態で一括インストール仮想環境を停止deactivateしてpip listするとおそらくインストールしたパッケージは表示されない
-(venv)/SimLifeX$ pip install -r requirements.txt
+```
+$ python -m pip --version
+```
 
-［任意，skip可能］仮想環境の設定
-今回のアプリ用に独立したpython の仮想環境を用意する. 
-個人で使っているpython のパッケージ関連を汚さないメリットがある.
+※ Python 3.4以降は標準で付属。
 
-仮想環境の配置
-任意のディレクトリ, もしくは/SimLifeX で仮想環境を構築する. 
-※ 必ず仮想環境名をvenvとすること. 
-SimLifeXでは/venv ディレクトリのみ非同期とする .gitignore を作成した. 
-環境名をvenv以外とした場合, 生成物が各リポジトリで同期されるため名称に注意
-/SimLifeX$ python -m venv venv
+## 3. パッケージのインストール
 
-仮想環境の起動
-構築した仮想環境は上記の設定コマンドを実行した際に生成されるディレクトリの中のactivate を実行することで起動できる. 起動した状態で$ python を実行した場合は, 任意のディレクトリで生成された/venv 内に格納されたpython を参照するモードとなる.
+使用しているパッケージ一覧を書き出した`requirements.txt`を参照して、パッケージを一括インストールする。
 
-windows pawershell の場合
-\SimLifeX> .\venv\Scripts\Activate.ps1
+```
+$ pip install -r requirements.txt
+```
 
-windows cmd の場合
-\SimLifeX> .\venv\Scripts\activate
+仮想環境を構築している場合、仮想環境を起動した状態で一括インストールすること。
 
-linux/macの場合
-/SimLifeX$ source venv/bin/activate
+仮想環境を停止した状態で`pip list`を実行してもインストールしたパッケージは表示されない。
 
-もしくは
-/SimLifeX$ source venv/Scripts/activate
+```
+(venv) $ pip install -r requirements.txt
+```
 
-仮想環境の停止
-仮想環境を停止する. 停止した状態ではpython, パッケージなどは各端末の環境準拠となる.
-(venv)/SimLifeX$ deactivate
+## 4. 仮想環境の設定（任意、スキップ可能）
 
-作業ディレクトリ（リポジトリ）と仮想環境の従属関係について
-仮想環境は実行したいアプリ（flaskr）と同階層で構築する必要はない. あくまで仮想環境を起動した状態で参照するpython ファイルの保管場所なのでactivate が実行しやすい位置であれば, SimLifeX内外は問わない. 便宜上リポジトリ直下の/SimLifeX で環境名venv を構築することをスタンダードと設定する. .gitignore では/venv を非追跡とするように記入しているため注意.
+今回のアプリ用に独立したPythonの仮想環境を用意する。個人で使っているPythonのパッケージ関連を汚さないメリットがある。
 
+### 仮想環境の配置
 
-その他：個人の環境でflaskアプリを実行する方法について
-・私たちは、flaskr/run.pyやflaskr/main.pyで実行が確認できなかった(Webサーバが立てられなかった)ため、以下のコードで実行した。
+任意のディレクトリ、もしくは`/SimLifeX`で仮想環境を構築する。
 
-\SimLifeX> flask --app flaskr run --port 80 --host 0.0.0.0
+※ 必ず仮想環境名を`venv`とすること。`SimLifeX`では`/venv`ディレクトリのみ非同期とするよう`.gitignore`を作成している。
 
-おそらく超危険？っぽい。
+```
+$ python -m venv venv
+```
 
+仮想環境名を`venv`以外にすると、生成物が各リポジトリで同期されるため名称に注意。
 
+### 仮想環境の起動
 
+構築した仮想環境は、上記の設定コマンドを実行した際に生成されるディレクトリ内の`activate`を実行することで起動できる。
 
+起動した状態で`$ python`を実行した場合は、任意のディレクトリで生成された`/venv`内に格納されたPythonを参照するモードとなる。
 
+- **Windows PowerShellの場合**:
+  ```
+  > .\venv\Scripts\Activate.ps1
+  ```
 
+- **Windows cmdの場合**:
+  ```
+  > .\venv\Scripts\activate
+  ```
+
+- **Linux/Macの場合**:
+  ```
+  $ source venv/bin/activate
+  ```
+  または
+  ```
+  $ source venv/Scripts/activate
+  ```
+
+### 仮想環境の停止
+
+仮想環境を停止する。停止した状態ではPython、パッケージなどは各端末の環境準拠となる。
+
+```
+(venv) $ deactivate
+```
+
+## 5. 作業ディレクトリ（リポジトリ）と仮想環境の従属関係について
+
+仮想環境は実行したいアプリ（例: flaskr）と同階層で構築する必要はない。
+
+あくまで仮想環境を起動した状態で参照するPythonファイルの保管場所なので、`activate`が実行しやすい位置であれば`SimLifeX`内外は問わない。
+
+便宜上、リポジトリ直下の`/SimLifeX`で環境名`venv`を構築することをスタンダードと設定する。`.gitignore`では`/venv`を非追跡とするように記入しているため注意。
+
+## その他: 個人の環境でFlaskアプリを実行する方法
+
+私たちは、`flaskr/run.py`や`flaskr/main.py`で実行が確認できなかった（Webサーバが立てられなかった）ため、以下のコードで実行した。
+
+```
+$ flask --app flaskr run --port 80 --host 0.0.0.0
+```
+
+おそらく**超危険**と思われる。
