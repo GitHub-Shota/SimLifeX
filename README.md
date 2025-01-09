@@ -1,2 +1,2 @@
-# XiaoXiao
-xiao's research
+# SimLifeX
+SimLifeX 
